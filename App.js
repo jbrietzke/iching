@@ -11,7 +11,7 @@ const Stack = createStackNavigator()
 
 
 
-const App = ()  => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">

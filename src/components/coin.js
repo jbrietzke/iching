@@ -1,41 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity, Image } from 'react-native';
 
-class Coin extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            face: heads,
-        }
+const Coin = (props) =>  {
+    const [face, setFace] = useState(props.default)
+    const flipCoin = () => {
+        setFace(determineFace())
     }
-    flipCoin = () => {
-        this.setState({
-            face: this.determineFace()
-        }, () => {
-            if(this.state.face == heads) this.props.increment()
-        })
-        if(this.state.face == heads) this.props.increment()
+    const determineFace = () => {
+        const result = Math.round(Math.random())
+        const newFace = result ? props.head : props.tail
+        const points = newFace == props.head ? 3 : 2
+        props.adjustScore(points)
+        return newFace
     }
-    determineFace = () => {
-        result = Math.round(Math.random())
-        return result ? heads : tails
-    }
-        
-    render() {
-        return (
-            <TouchableOpacity
-                onPress={this.flipCoin.bind(this)}>
-                <Image 
-                    style = {styles.coin}
-                    source = {this.state.face}
-                />
-            </TouchableOpacity>
-        )
-    }
+    return (
+        <TouchableOpacity
+            onPress={flipCoin}>
+            <Image 
+                style = {styles.coin}
+                source = {face}
+            />
+        </TouchableOpacity>
+    )
 }
-const heads = require('../assets/heads.jpg')
-const tails = require('../assets/tails.jpg')
+// const heads = require('../assets/heads.jpg')
+// const tails = require('../assets/tails.jpg')
 
 const styles = {
     coin: {

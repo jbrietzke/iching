@@ -1,29 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import Coin from './coin'
+import CoinCase from './coinCase'
 
-class ConsultScreen extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-        score: 0
-    }
-  }
-  increment = () => {
-    this.setState({score: ++this.state.score})
-  }
-  render(){
+const ConsultScreen = () => {
     return (
       <View style={styles.screen}>
         <Text>Consult Screen</Text>
-        <Coin increment={this.increment}/>
-        <Coin increment={this.increment}/>
-        <Coin increment={this.increment}/>
-        <Text>{this.state.score}</Text>
+        <CoinCase />
       </View>
     );
-  }
-    
 }
 
 const styles = StyleSheet.create({
