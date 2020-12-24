@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, Text, View, ImageBackground, Button } from 'react-native';
-import changeCount from '../actions/count'
+import changeCount from '../actions/changeCount'
 
 const yingYangImage = require('../assets/ying_yang_background.jpg')
 
@@ -13,14 +13,14 @@ const HomeScreen = ( {navigation} ) => {
   return (
     <View style = {styles.homeScreen}>
       <ImageBackground source={yingYangImage} style={styles.image}>
-        <Text style={styles.text}>Home Screen {count} ?</Text>
+        <Text style={styles.text}>Home Screen {count.count}</Text>
         <Button 
           title='Consult'
           onPress={() => navigation.navigate('Consult')}
           color='white'
         />
         <Button 
-          title= 'Blah Change Blah Count'
+          title= 'Add One'
           onPress={() => dispatch(changeCount())}
         />
       </ImageBackground>

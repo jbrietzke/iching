@@ -4,16 +4,16 @@ const initialState = {
     count: 5
 };
 
-const countReducer = (state = initialState, action) => {
+const count = (state = initialState, action) => {
     switch(action.type) {
         case COUNTER_CHANGE:
             return {
                 ...state,
-                count: action.payload
+                count: state.count + action.payload
             };
     default:
         return state;
     }
 }
 
-export default countReducer
+export default count

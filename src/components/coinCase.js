@@ -2,35 +2,23 @@ import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity, Image } from 'react-native';
 import Coin from './coin'
+import { useSelector, useDispatch } from 'react-redux'
+import flipFaces from '../actions/flipFaces'
+import setScore from '../actions/setScore'
 
 const CoinCase = () => {
-    const randomFace = () => {
-        const result = Math.round(Math.random())
-        return result ? heads : tails
-    }
-    
-    const [score, setScore] = useState(0)
-    const [face0, setFace] = useState(randomFace())
-    
-    const adjustScore = (points) =>  {
-        setScore(score + points)
-    }
-    
+    const score = useSelector(state => state.score)
+    const coinFaces = useSelector(state => state.coinFaces)
     return (
         <View>
-            <Coin
-                adjustScore={adjustScore}
-                head={heads}
-                tail={tails}
-                default={face0}
-            />
-            <Text>Score = {score}</Text>
+            <Coin coinNum={0}></Coin>
+            <Coin coinNum={1}></Coin>
+            <Coin coinNum={2}></Coin>
+            <Text>Score = {coinFaces.score}</Text>
+            <Text>Flips = {coinFaces.flips}</Text>
+            
         </View>
         
     )
 }
-
-const heads = require('../assets/heads.jpg')
-const tails = require('../assets/tails.jpg')
-
 export default CoinCase

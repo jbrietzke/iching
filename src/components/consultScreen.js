@@ -1,14 +1,36 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, Button } from 'react-native';
 import CoinCase from './coinCase'
+import { useSelector, useDispatch } from 'react-redux'
+import flipFaces from '../actions/flipFaces'
+import setScore from '../actions/setScore'
 
-const ConsultScreen = () => {
-    return (
-      <View style={styles.screen}>
-        <Text>Consult Screen</Text>
-        <CoinCase />
-      </View>
-    );
+const ConsultScreen = ( {navigation} ) => {
+  const coinFaces = useSelector(state => state.coinFaces)
+  const dispatch = useDispatch()
+  const flip = () => {
+      dispatch(flipFaces())
+      dispatch(setScore())
+  }
+  return (
+    <View style={styles.screen}>
+      <Text>Consult Screen</Text>
+      {coinFaces.flips < 6 && 
+        <Button
+        title='Flip Faces'
+        onPress={flip}
+      />
+      }
+      {coinFaces.flips >= 6 && 
+        <Button 
+          title='Get Reading'
+          onPress={() => navigation.navigate('Reading')}
+          color='blue'
+        />
+      }
+      <CoinCase />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
