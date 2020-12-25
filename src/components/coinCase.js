@@ -3,8 +3,7 @@ import React, {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity, Image } from 'react-native';
 import Coin from './coin'
 import { useSelector, useDispatch } from 'react-redux'
-import flipFaces from '../actions/flipFaces'
-import setScore from '../actions/setScore'
+
 
 const CoinCase = () => {
     const score = useSelector(state => state.score)

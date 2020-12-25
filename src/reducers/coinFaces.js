@@ -5,6 +5,8 @@ const initialState = {
     head: headImg,
     tail: tailImg,
     facesArr: [headImg, tailImg, headImg],
+    current_hex: [],
+    future_hex: [],
     score: 0,
     flips: 0,
     max_flips: 6
@@ -27,9 +29,29 @@ const setScore = (state) => {
         console.log(item)
         score += item == state.head ? 3 : 2
     })
-    console.log(state)
     return score
 }
+
+const currentFutureHexConverter = (state) => {
+    let current, future = 0
+    switch(state.score) {
+        case 6:
+            current = 0
+            future = 1
+        case 7:
+            current, future = 1
+        case 8: 
+            current, future = 0
+        case 9:
+            current = 1
+            future = 0
+    }
+}
+
+// 6 changing yin
+// 7 unchanging yang
+// 8 unchanging yin
+// 9 changing yang
 
 const coinFaces = (state = initialState, action) => {
     switch(action.type) {
@@ -53,6 +75,11 @@ const coinFaces = (state = initialState, action) => {
             return {
                 ...state,
                 score: setScore(state)
+            }
+        case 'ADD_HEX':
+            return {
+                ...state,
+                current_hex: current_hex.push(1)
             }
     default:
         return state;

@@ -42,3 +42,9 @@ const styles = StyleSheet.create({
 })
 
 export default ConsultScreen
+
+
+// 6 changing yin
+// 7 unchanging yang
+// 8 unchanging yin
+// 9 changing yang
