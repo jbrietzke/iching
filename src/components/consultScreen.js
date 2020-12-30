@@ -1,29 +1,36 @@
 import React from 'react';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import Coin from './coin'
+import { StyleSheet, Text, View, ImageBackground, Button } from 'react-native';
+import CoinCase from './coinCase'
+import { useSelector, useDispatch } from 'react-redux'
+import flipFaces from '../actions/flipFaces'
+import setScore from '../actions/setScore'
 
-class ConsultScreen extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-        score: 0
-    }
+const ConsultScreen = ( {navigation} ) => {
+  const coinFaces = useSelector(state => state.coinFaces)
+  const dispatch = useDispatch()
+  const flip = () => {
+      dispatch(flipFaces())
+      dispatch(setScore())
   }
-  increment = () => {
-    this.setState({score: ++this.state.score})
-  }
-  render(){
-    return (
-      <View style={styles.screen}>
-        <Text>Consult Screen</Text>
-        <Coin increment={this.increment}/>
-        <Coin increment={this.increment}/>
-        <Coin increment={this.increment}/>
-        <Text>{this.state.score}</Text>
-      </View>
-    );
-  }
-    
+  return (
+    <View style={styles.screen}>
+      <Text>Consult Screen</Text>
+      {coinFaces.flips < 6 && 
+        <Button
+        title='Flip Faces'
+        onPress={flip}
+      />
+      }
+      {coinFaces.flips >= 6 && 
+        <Button 
+          title='Get Reading'
+          onPress={() => navigation.navigate('Reading')}
+          color='blue'
+        />
+      }
+      <CoinCase />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -35,3 +42,9 @@ const styles = StyleSheet.create({
 })
 
 export default ConsultScreen
+
+
+// 6 changing yin
+// 7 unchanging yang
+// 8 unchanging yin
+// 9 changing yang

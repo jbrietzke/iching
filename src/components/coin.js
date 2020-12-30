@@ -1,41 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, Text, View, ImageBackground, Button, TouchableOpacity, Image } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux'
 
-class Coin extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            face: heads,
-        }
-    }
-    flipCoin = () => {
-        this.setState({
-            face: this.determineFace()
-        }, () => {
-            if(this.state.face == heads) this.props.increment()
-        })
-        if(this.state.face == heads) this.props.increment()
-    }
-    determineFace = () => {
-        result = Math.round(Math.random())
-        return result ? heads : tails
-    }
-        
-    render() {
-        return (
-            <TouchableOpacity
-                onPress={this.flipCoin.bind(this)}>
-                <Image 
-                    style = {styles.coin}
-                    source = {this.state.face}
-                />
-            </TouchableOpacity>
-        )
-    }
+const Coin = (props) =>  {
+    const coinFaces = useSelector(state => state.coinFaces)
+    return (
+        <TouchableOpacity>
+            <Image 
+                style = {styles.coin}
+                source = {coinFaces.facesArr[props.coinNum]}
+            />
+        </TouchableOpacity>
+    )
 }
-const heads = require('../assets/heads.jpg')
-const tails = require('../assets/tails.jpg')
 
 const styles = {
     coin: {
